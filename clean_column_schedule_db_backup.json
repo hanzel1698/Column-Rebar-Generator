@@ -1,0 +1,677 @@
+[
+    {
+        "id": "C-4x4-1",
+        "size": "400 x 400",
+        "pct": 1.0,
+        "area": 1607.68,
+        "pct_raw": "1.00%",
+        "area_raw": "1607.68 sqm",
+        "rebar": "Main-8 #16"
+    },
+    {
+        "id": "C-4x4-2",
+        "size": "400 x 400",
+        "pct": 1.29,
+        "area": 2059.84,
+        "pct_raw": "1.29%",
+        "area_raw": "2059.84 sqm",
+        "rebar": "Main- 4 #20 +4 #16"
+    },
+    {
+        "id": "C-4x4-3",
+        "size": "400 x 400",
+        "pct": 1.51,
+        "area": 2411.52,
+        "pct_raw": "1.51%",
+        "area_raw": "2411.52 sqm",
+        "rebar": "Main- 12 #16"
+    },
+    {
+        "id": "C-4x4-4",
+        "size": "400 x 400",
+        "pct": 1.57,
+        "area": 2512.0,
+        "pct_raw": "1.57%",
+        "area_raw": "2512.00 sqm",
+        "rebar": "Main-8 #20"
+    },
+    {
+        "id": "C-4x4-5",
+        "size": "400 x 400",
+        "pct": 1.73,
+        "area": 2766.34,
+        "pct_raw": "1.73%",
+        "area_raw": "2766.34 sqm",
+        "rebar": "Main - 4 #25+4 #16"
+    },
+    {
+        "id": "C-4x4-6",
+        "size": "400 x 400",
+        "pct": 1.79,
+        "area": 2863.68,
+        "pct_raw": "1.79%",
+        "area_raw": "2863.68 sqm",
+        "rebar": "Main- 4 #20 +8 #16"
+    },
+    {
+        "id": "C-4x4-7",
+        "size": "400 x 400",
+        "pct": 2.0,
+        "area": 3218.5,
+        "pct_raw": "2.00%",
+        "area_raw": "3218.50 sqm",
+        "rebar": "Main - 4 #25+4 #20"
+    },
+    {
+        "id": "C-4x4-8",
+        "size": "400 x 400",
+        "pct": 2.23,
+        "area": 3570.18,
+        "pct_raw": "2.23%",
+        "area_raw": "3570.18 sqm",
+        "rebar": "Main - 4 #25 +8 #16"
+    },
+    {
+        "id": "C-4x4-9",
+        "size": "400 x 400",
+        "pct": 2.36,
+        "area": 3768.0,
+        "pct_raw": "2.36%",
+        "area_raw": "3768.00 sqm",
+        "rebar": "Main- 12 #20"
+    },
+    {
+        "id": "C-4x4-10",
+        "size": "400 x 400",
+        "pct": 2.45,
+        "area": 3925.0,
+        "pct_raw": "2.45%",
+        "area_raw": "3925.00 sqm",
+        "rebar": "Main - 8 #25"
+    },
+    {
+        "id": "C-4x4-11",
+        "size": "400 x 400",
+        "pct": 2.796,
+        "area": 4474.5,
+        "pct_raw": "2.80%",
+        "area_raw": "4474.50 sqm",
+        "rebar": "Main- 4 #25 + 8#20"
+    },
+    {
+        "id": "C-4x5-1",
+        "size": "400 x 500",
+        "pct": 0.8,
+        "area": 1607.68,
+        "pct_raw": "0.80%",
+        "area_raw": "1607.68 sqm",
+        "rebar": "Main- 8 #16"
+    },
+    {
+        "id": "C-4x5-2",
+        "size": "400 x 500",
+        "pct": 1.03,
+        "area": 2059.84,
+        "pct_raw": "1.03%",
+        "area_raw": "2059.84 sqm",
+        "rebar": "Main- 4 #20+4 #16"
+    },
+    {
+        "id": "C-4x5-3",
+        "size": "400 x 500",
+        "pct": 1.205,
+        "area": 2411.52,
+        "pct_raw": "1.21%",
+        "area_raw": "2411.52 sqm",
+        "rebar": "Main- 12 #16"
+    },
+    {
+        "id": "C-4x5-4",
+        "size": "400 x 500",
+        "pct": 1.26,
+        "area": 2512.0,
+        "pct_raw": "1.26%",
+        "area_raw": "2512.00 sqm",
+        "rebar": "Main- 8 #20"
+    },
+    {
+        "id": "C-4x5-5",
+        "size": "400 x 500",
+        "pct": 1.43,
+        "area": 2863.68,
+        "pct_raw": "1.43%",
+        "area_raw": "2863.68 sqm",
+        "rebar": "Main- 4 #20+8 #16"
+    },
+    {
+        "id": "C-4x5-7",
+        "size": "400 x 500",
+        "pct": 1.66,
+        "area": 3315.84,
+        "pct_raw": "1.66%",
+        "area_raw": "3315.84 sqm",
+        "rebar": "Main- 8 #20 +4 #16"
+    },
+    {
+        "id": "C-4x5-8",
+        "size": "400 x 500",
+        "pct": 1.79,
+        "area": 3570.18,
+        "pct_raw": "1.79%",
+        "area_raw": "3570.18 sqm",
+        "rebar": "Main- 4 #25+8 #16"
+    },
+    {
+        "id": "C-4x5-9",
+        "size": "400 x 500",
+        "pct": 1.884,
+        "area": 3768.0,
+        "pct_raw": "1.88%",
+        "area_raw": "3768.00 sqm",
+        "rebar": "Main -12 #20"
+    },
+    {
+        "id": "C-4x5-12",
+        "size": "400 x 500",
+        "pct": 2.24,
+        "area": 4474.5,
+        "pct_raw": "2.24%",
+        "area_raw": "4474.50 sqm",
+        "rebar": "Main- 4 #25+8 #20"
+    },
+    {
+        "id": "C-4x5-14",
+        "size": "400 x 500",
+        "pct": 2.6,
+        "area": 5181.0,
+        "pct_raw": "2.60%",
+        "area_raw": "5181.00 sqm",
+        "rebar": "Main- 8 #25 +4 #20"
+    },
+    {
+        "id": "C-4x5-15",
+        "size": "400 x 500",
+        "pct": 2.767,
+        "area": 5534.25,
+        "pct_raw": "2.77%",
+        "area_raw": "5534.25 sqm",
+        "rebar": "Main-10 #25 + 2#20"
+    },
+    {
+        "id": "C-4x5-16",
+        "size": "400 x 500",
+        "pct": 2.944,
+        "area": 5887.5,
+        "pct_raw": "2.94%",
+        "area_raw": "5887.50 sqm",
+        "rebar": "Main-12 #25"
+    },
+    {
+        "id": "C-4x6-1",
+        "size": "400 x 600",
+        "pct": 1.0,
+        "area": 2411.52,
+        "pct_raw": "1.00%",
+        "area_raw": "2411.52 sqm",
+        "rebar": "Main- 12 #16"
+    },
+    {
+        "id": "C-4x6-2",
+        "size": "400 x 600",
+        "pct": 1.19,
+        "area": 2863.68,
+        "pct_raw": "1.19%",
+        "area_raw": "2863.68 sqm",
+        "rebar": "Main- 4 #20+8 #16"
+    },
+    {
+        "id": "C-4x6-3",
+        "size": "400 x 600",
+        "pct": 1.34,
+        "area": 3215.32,
+        "pct_raw": "1.34%",
+        "area_raw": "3215.32 sqm",
+        "rebar": "Main- 16 #16"
+    },
+    {
+        "id": "C-4x6-4",
+        "size": "400 x 600",
+        "pct": 1.487,
+        "area": 3570.18,
+        "pct_raw": "1.49%",
+        "area_raw": "3570.18 sqm",
+        "rebar": "Main- 4 #25+8 #16"
+    },
+    {
+        "id": "C-4x6-5",
+        "size": "400 x 600",
+        "pct": 1.53,
+        "area": 3667.52,
+        "pct_raw": "1.53%",
+        "area_raw": "3667.52 sqm",
+        "rebar": "Main-4 #20 + 12#16"
+    },
+    {
+        "id": "C-4x6-6",
+        "size": "400 x 600",
+        "pct": 1.57,
+        "area": 3768.0,
+        "pct_raw": "1.57%",
+        "area_raw": "3768.00 sqm",
+        "rebar": "Main- 12 #20"
+    },
+    {
+        "id": "C-4x6-7",
+        "size": "400 x 600",
+        "pct": 1.71,
+        "area": 4119.68,
+        "pct_raw": "1.71%",
+        "area_raw": "4119.68 sqm",
+        "rebar": "Main- 8 #20 +8 #16"
+    },
+    {
+        "id": "C-4x6-8",
+        "size": "400 x 600",
+        "pct": 1.86,
+        "area": 4474.5,
+        "pct_raw": "1.86%",
+        "area_raw": "4474.50 sqm",
+        "rebar": "Main- 4 #25+8 #20"
+    },
+    {
+        "id": "C-4x6-9",
+        "size": "400 x 600",
+        "pct": 1.9,
+        "area": 4571.84,
+        "pct_raw": "1.90%",
+        "area_raw": "4571.84 sqm",
+        "rebar": "Main- 12 #20 +4 #16"
+    },
+    {
+        "id": "C-4x6-10",
+        "size": "400 x 600",
+        "pct": 1.97,
+        "area": 4728.84,
+        "pct_raw": "1.97%",
+        "area_raw": "4728.84 sqm",
+        "rebar": "Main- 8 #25+4 #16"
+    },
+    {
+        "id": "C-4x6-11",
+        "size": "400 x 600",
+        "pct": 2.09,
+        "area": 5024.0,
+        "pct_raw": "2.09%",
+        "area_raw": "5024.00 sqm",
+        "rebar": "Main -16 #20"
+    },
+    {
+        "id": "C-4x6-12",
+        "size": "400 x 600",
+        "pct": 2.16,
+        "area": 5181.0,
+        "pct_raw": "2.16%",
+        "area_raw": "5181.00 sqm",
+        "rebar": "Main- 8 #25+4 #20"
+    },
+    {
+        "id": "C-4x6-13",
+        "size": "400 x 600",
+        "pct": 2.27,
+        "area": 5455.75,
+        "pct_raw": "2.27%",
+        "area_raw": "5455.75 sqm",
+        "rebar": "Main - 6 #25+8#20"
+    },
+    {
+        "id": "C-4x6-14",
+        "size": "400 x 600",
+        "pct": 2.39,
+        "area": 5730.5,
+        "pct_raw": "2.39%",
+        "area_raw": "5730.50 sqm",
+        "rebar": "Main-4 #25 + 12#20"
+    },
+    {
+        "id": "C-4x6-15",
+        "size": "400 x 600",
+        "pct": 2.45,
+        "area": 5887.5,
+        "pct_raw": "2.45%",
+        "area_raw": "5887.50 sqm",
+        "rebar": "Main- 12 #25"
+    },
+    {
+        "id": "C-4x6-16",
+        "size": "400 x 600",
+        "pct": 2.57,
+        "area": 6162.25,
+        "pct_raw": "2.57%",
+        "area_raw": "6162.25 sqm",
+        "rebar": "Main - 10 #25+4#20"
+    },
+    {
+        "id": "C-4x6-17",
+        "size": "400 x 600",
+        "pct": 2.68,
+        "area": 6437.0,
+        "pct_raw": "2.68%",
+        "area_raw": "6437.00 sqm",
+        "rebar": "Main- 8 #25 + 8 #20"
+    },
+    {
+        "id": "C-4x6-18",
+        "size": "400 x 600",
+        "pct": 2.71,
+        "area": 6515.5,
+        "pct_raw": "2.71%",
+        "area_raw": "6515.50 sqm",
+        "rebar": "Main -12 #25+2 #20"
+    },
+    {
+        "id": "C-4x6-19",
+        "size": "400 x 600",
+        "pct": 2.86,
+        "area": 6868.75,
+        "pct_raw": "2.86%",
+        "area_raw": "6868.75 sqm",
+        "rebar": "Main - 14 #25"
+    },
+    {
+        "id": "C-4x7-1",
+        "size": "400 x 700",
+        "pct": 1.0,
+        "area": 2813.44,
+        "pct_raw": "1.00%",
+        "area_raw": "2813.44 sqm",
+        "rebar": "Main - 14 #16"
+    },
+    {
+        "id": "C-4x7-2",
+        "size": "400 x 700",
+        "pct": 1.15,
+        "area": 3215.36,
+        "pct_raw": "1.15%",
+        "area_raw": "3215.36 sqm",
+        "rebar": "Main - 16 #16"
+    },
+    {
+        "id": "C-4x7-3",
+        "size": "400 x 700",
+        "pct": 1.39,
+        "area": 3893.6,
+        "pct_raw": "1.39%",
+        "area_raw": "3893.60 sqm",
+        "rebar": "Main- 6 #20 +10 #16"
+    },
+    {
+        "id": "C-4x7-4",
+        "size": "400 x 700",
+        "pct": 1.47,
+        "area": 4119.68,
+        "pct_raw": "1.47%",
+        "area_raw": "4119.68 sqm",
+        "rebar": "Main- 8 #20 +8 #16"
+    },
+    {
+        "id": "C-4x7-5",
+        "size": "400 x 700",
+        "pct": 1.57,
+        "area": 4396.0,
+        "pct_raw": "1.57%",
+        "area_raw": "4396.00 sqm",
+        "rebar": "Main - 14 #20"
+    },
+    {
+        "id": "C-4x7-6",
+        "size": "400 x 700",
+        "pct": 1.63,
+        "area": 4571.84,
+        "pct_raw": "1.63%",
+        "area_raw": "4571.84 sqm",
+        "rebar": "Main -12 #20+4 #16"
+    },
+    {
+        "id": "C-4x7-7",
+        "size": "400 x 700",
+        "pct": 1.79,
+        "area": 5024.0,
+        "pct_raw": "1.79%",
+        "area_raw": "5024.00 sqm",
+        "rebar": "Main - 16 #20"
+    },
+    {
+        "id": "C-4x7-8",
+        "size": "400 x 700",
+        "pct": 1.82,
+        "area": 5102.5,
+        "pct_raw": "1.82%",
+        "area_raw": "5102.50 sqm",
+        "rebar": "Main - 4 #25 + 10 #20"
+    },
+    {
+        "id": "C-4x7-9",
+        "size": "400 x 700",
+        "pct": 1.95,
+        "area": 5455.75,
+        "pct_raw": "1.95%",
+        "area_raw": "5455.75 sqm",
+        "rebar": "Main -8 #20 +6 #25"
+    },
+    {
+        "id": "C-4x7-10",
+        "size": "400 x 700",
+        "pct": 2.04,
+        "area": 5730.5,
+        "pct_raw": "2.04%",
+        "area_raw": "5730.50 sqm",
+        "rebar": "Main -4 #25 +12 #20"
+    },
+    {
+        "id": "C-4x7-11",
+        "size": "400 x 700",
+        "pct": 2.1,
+        "area": 5887.5,
+        "pct_raw": "2.10%",
+        "area_raw": "5887.50 sqm",
+        "rebar": "Main -12 #25"
+    },
+    {
+        "id": "C-4x7-12",
+        "size": "400 x 700",
+        "pct": 2.298,
+        "area": 6437.0,
+        "pct_raw": "2.30%",
+        "area_raw": "6437.00 sqm",
+        "rebar": "Main- 8 #25+8 #20"
+    },
+    {
+        "id": "C-4x7-13",
+        "size": "400 x 700",
+        "pct": 2.45,
+        "area": 6868.75,
+        "pct_raw": "2.45%",
+        "area_raw": "6868.75 sqm",
+        "rebar": "Main - 14 #25"
+    },
+    {
+        "id": "C-4x7-14",
+        "size": "400 x 700",
+        "pct": 2.55,
+        "area": 7143.5,
+        "pct_raw": "2.55%",
+        "area_raw": "7143.50 sqm",
+        "rebar": "Main -12 #25+4 #20"
+    },
+    {
+        "id": "C-4x7-15",
+        "size": "400 x 700",
+        "pct": 2.68,
+        "area": 7496.75,
+        "pct_raw": "2.68%",
+        "area_raw": "7496.75 sqm",
+        "rebar": "Main - 14 #25+2#20"
+    },
+    {
+        "id": "C-4x7-16",
+        "size": "400 x 700",
+        "pct": 2.8,
+        "area": 7850.0,
+        "pct_raw": "2.80%",
+        "area_raw": "7850.00 sqm",
+        "rebar": "Main- 16 #25"
+    },
+    {
+        "id": "C-4x7-17",
+        "size": "400 x 700",
+        "pct": 2.9,
+        "area": 8124.75,
+        "pct_raw": "2.90%",
+        "area_raw": "8124.75 sqm",
+        "rebar": "Main- 14 #25 +4 #20"
+    },
+    {
+        "id": "C-4x8-1",
+        "size": "400 x 800",
+        "pct": 0.89,
+        "area": 2813.44,
+        "pct_raw": "0.89%",
+        "area_raw": "2813.44 sqm",
+        "rebar": "Main -14 #16"
+    },
+    {
+        "id": "C-4x8-2",
+        "size": "400 x 800",
+        "pct": 1.0,
+        "area": 3215.36,
+        "pct_raw": "1.00%",
+        "area_raw": "3215.36 sqm",
+        "rebar": "Main -16 #16"
+    },
+    {
+        "id": "C-4x8-3",
+        "size": "400 x 800",
+        "pct": 1.15,
+        "area": 3667.52,
+        "pct_raw": "1.15%",
+        "area_raw": "3667.52 sqm",
+        "rebar": "Main - 4 #20+12 #16"
+    },
+    {
+        "id": "C-4x8-4",
+        "size": "400 x 800",
+        "pct": 1.37,
+        "area": 4396.0,
+        "pct_raw": "1.37%",
+        "area_raw": "4396.00 sqm",
+        "rebar": "Main -14 #20"
+    },
+    {
+        "id": "C-4x8-5",
+        "size": "400 x 800",
+        "pct": 1.57,
+        "area": 5024.0,
+        "pct_raw": "1.57%",
+        "area_raw": "5024.00 sqm",
+        "rebar": "Main -16 #20"
+    },
+    {
+        "id": "C-4x8-6",
+        "size": "400 x 800",
+        "pct": 1.7,
+        "area": 5455.75,
+        "pct_raw": "1.70%",
+        "area_raw": "5455.75 sqm",
+        "rebar": "Main -6 #25+8#20"
+    },
+    {
+        "id": "C-4x8-7",
+        "size": "400 x 800",
+        "pct": 1.79,
+        "area": 5730.5,
+        "pct_raw": "1.79%",
+        "area_raw": "5730.50 sqm",
+        "rebar": "Main - 4 #25+12 #20"
+    },
+    {
+        "id": "C-4x8-8",
+        "size": "400 x 800",
+        "pct": 1.9,
+        "area": 6083.75,
+        "pct_raw": "1.90%",
+        "area_raw": "6083.75 sqm",
+        "rebar": "Main -6 #25+10#20"
+    },
+    {
+        "id": "C-4x8-9",
+        "size": "400 x 800",
+        "pct": 2.01,
+        "area": 6437.0,
+        "pct_raw": "2.01%",
+        "area_raw": "6437.00 sqm",
+        "rebar": "Main - 8 #25 +8 #20"
+    },
+    {
+        "id": "C-4x8-10",
+        "size": "400 x 800",
+        "pct": 2.12,
+        "area": 6790.25,
+        "pct_raw": "2.12%",
+        "area_raw": "6790.25 sqm",
+        "rebar": "Main -10 #25+6#20"
+    },
+    {
+        "id": "C-4x8-11",
+        "size": "400 x 800",
+        "pct": 2.14,
+        "area": 6848.0,
+        "pct_raw": "2.14%",
+        "area_raw": "6848.00 sqm",
+        "rebar": "Main -14 #25"
+    },
+    {
+        "id": "C-4x8-12",
+        "size": "400 x 800",
+        "pct": 2.32,
+        "area": 7418.25,
+        "pct_raw": "2.32%",
+        "area_raw": "7418.25 sqm",
+        "rebar": "Main -10 #25+8#20"
+    },
+    {
+        "id": "C-4x8-13",
+        "size": "400 x 800",
+        "pct": 2.45,
+        "area": 7850.0,
+        "pct_raw": "2.45%",
+        "area_raw": "7850.00 sqm",
+        "rebar": "Main -16 #25"
+    },
+    {
+        "id": "C-4x8-14",
+        "size": "400 x 800",
+        "pct": 2.51,
+        "area": 8046.25,
+        "pct_raw": "2.51%",
+        "area_raw": "8046.25 sqm",
+        "rebar": "Main-10 #25+10#20"
+    },
+    {
+        "id": "C-4x8-15",
+        "size": "400 x 800",
+        "pct": 2.76,
+        "area": 8831.25,
+        "pct_raw": "2.76%",
+        "area_raw": "8831.25 sqm",
+        "rebar": "Main - 18 #25"
+    },
+    {
+        "id": "C-4x8-16",
+        "size": "400 x 800",
+        "pct": 3.06,
+        "area": 9812.5,
+        "pct_raw": "3.06%",
+        "area_raw": "9812.50 sqm",
+        "rebar": "Main-20 #25"
+    }
+]

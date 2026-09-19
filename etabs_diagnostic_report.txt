@@ -1,0 +1,65 @@
+====================================================
+         ETABS CONNECTION DIAGNOSTIC REPORT         
+====================================================
+
+--- SYSTEM INFO ---
+Python Version: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
+Executable: C:\Python314\python.exe
+Working Directory: C:\Column Rebar Generator
+Running as Administrator: False
+
+--- PROCESS CHECK ---
+WARNING: ETABS.exe was NOT found in the running processes list.
+Make sure ETABS is open before running the connection.
+
+--- PYWIN32 & ROT SCAN ---
+pythoncom and win32com imported successfully.
+No ETABS/CSI objects found in ROT.
+This is common if ETABS and this script have different privilege/integrity levels (e.g. one is Admin, one is normal user).
+
+--- COMTYPES CHECK ---
+comtypes version 1.4.16 imported successfully.
+Could not determine comtypes cache folder: module 'comtypes.client._code_cache' has no attribute 'directory'
+
+--- METHOD A: GetActiveObject (CSI.ETABS.API.ETABSObject) ---
+Attempting comtypes.client.GetActiveObject('CSI.ETABS.API.ETABSObject')...
+FAILED Method A: [WinError -2147221021] Operation unavailable
+Traceback (most recent call last):
+  File "C:\Column Rebar Generator\diagnose_etabs.py", line 103, in run_diagnostics
+    etabs_object = comtypes.client.GetActiveObject("CSI.ETABS.API.ETABSObject")
+  File "C:\Users\hanze\AppData\Roaming\Python\Python314\site-packages\comtypes\client\_activeobj.py", line 43, in GetActiveObject
+    obj = comtypes.GetActiveObject(clsid, interface=interface)
+  File "C:\Users\hanze\AppData\Roaming\Python\Python314\site-packages\comtypes\_post_coinit\activeobj.py", line 43, in GetActiveObject
+    _GetActiveObject(byref(clsid), None, byref(p))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "_ctypes/callproc.c", line 1036, in GetResult
+OSError: [WinError -2147221021] Operation unavailable
+
+
+--- METHOD B: win32com GetActiveObject ---
+Attempting win32com.client.GetActiveObject('CSI.ETABS.API.ETABSObject')...
+FAILED Method B: (-2147221021, 'Operation unavailable', None, None)
+Traceback (most recent call last):
+  File "C:\Column Rebar Generator\diagnose_etabs.py", line 121, in run_diagnostics
+    etabs_object = win32com.client.GetActiveObject("CSI.ETABS.API.ETABSObject")
+  File "C:\Users\hanze\AppData\Roaming\Python\Python314\site-packages\win32com\client\__init__.py", line 94, in GetActiveObject
+    dispatch = pythoncom.GetActiveObject(resultCLSID)
+pywintypes.com_error: (-2147221021, 'Operation unavailable', None, None)
+
+
+--- METHOD C: ETABSv1.Helper Helper Class ---
+Attempting to create ETABSv1.Helper...
+SUCCESS: Created ETABSv1.Helper object.
+SUCCESS: Queried cHelper interface.
+Attempting helper.GetObject('CSI.ETABS.API.ETABSObject')...
+FAILED: helper.GetObject returned None.
+
+--- REGISTRY COM REGISTRATION CHECK ---
+WARNING: Registry Key NOT FOUND: HKEY_CLASSES_ROOT\CLSID\{F19760EE-5CE7-4180-8772-74E9A4B866EE}
+Registry Key FOUND: HKEY_CLASSES_ROOT\CSI.ETABS.API.ETABSObject
+Registry Key FOUND: HKEY_CLASSES_ROOT\ETABSv1.Helper
+
+--- DIAGNOSTIC CONCLUSIONS ---
+-> CONCLUSION: ETABS.exe is not running. Please open ETABS and open your model before launching this.
+
+====================================================
