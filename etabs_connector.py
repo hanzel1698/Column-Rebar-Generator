@@ -30,10 +30,14 @@ def connect_to_etabs(gui_callback=None):
     """
     print("Connecting to ETABS...")
     
-    # Pre-initialize ETABS type library so comtypes knows how to cast generic wrapped COM objects
+    # Pre-initialize ETABS type library so comtypes knows how to cast generic wrapped COM objects.
+    # GetBestInterface auto-generates bindings from whichever type library the currently
+    # installed/running ETABS actually registers (e.g. ETABSv1.tlb on ETABS 20 vs. CSiAPIv1.tlb
+    # on ETABS 22+) instead of a hardcoded cached interface that can silently mismatch a newer
+    # or older ETABS install and corrupt memory on calls (observed as COM access violations).
     try:
         helper = comtypes.client.CreateObject('ETABSv1.Helper')
-        helper = helper.QueryInterface(comtypes.gen.ETABSv1.cHelper)
+        helper = comtypes.client.GetBestInterface(helper)
         print("Successfully pre-initialized ETABS type library in comtypes.")
     except Exception as e:
         print(f"Pre-initialization of ETABS type library bypassed: {e}")
@@ -68,11 +72,13 @@ def connect_to_etabs(gui_callback=None):
                     punk.AddRef()
                     
                     etabs_object = comtypes.client.wrap(punk)
-                    # Crucial cast step: ensure POINTER(IUnknown) is cast to fully-typed cOAPI so attributes (like SapModel) are exposed
+                    # Crucial cast step: resolve to the fully-typed interface matching the
+                    # actual installed ETABS version (see GetBestInterface note above) so
+                    # attributes (like SapModel) are exposed.
                     try:
-                        etabs_object = etabs_object.QueryInterface(comtypes.gen.ETABSv1.cOAPI)
+                        etabs_object = comtypes.client.GetBestInterface(etabs_object)
                     except Exception as qi_err:
-                        print(f"Failed to cast ETABS object to cOAPI interface in ROT scan: {qi_err}")
+                        print(f"Failed to cast ETABS object to typed interface in ROT scan: {qi_err}")
                     sap_model = etabs_object.SapModel
                     
                     try:
@@ -124,8 +130,8 @@ def connect_to_etabs(gui_callback=None):
     # Standard single-instance fallback
     try:
         helper = comtypes.client.CreateObject('ETABSv1.Helper')
-        helper = helper.QueryInterface(comtypes.gen.ETABSv1.cHelper)
-        
+        helper = comtypes.client.GetBestInterface(helper)
+
         etabs_object = None
         # Method 1: CSI Helper standard GetObject method (proven to succeed on this machine where GetActiveObject fails)
         try:
@@ -140,11 +146,13 @@ def connect_to_etabs(gui_callback=None):
             print("Attempting standard GetActiveObject fallback...")
             etabs_object = comtypes.client.GetActiveObject("CSI.ETABS.API.ETABSObject")
             
-        # Crucial cast step: ensure POINTER(IUnknown) is cast to fully-typed cOAPI so attributes (like SapModel) are exposed
+        # Crucial cast step: resolve to the fully-typed interface matching the actual
+        # installed ETABS version (see GetBestInterface note above) so attributes
+        # (like SapModel) are exposed.
         try:
-            etabs_object = etabs_object.QueryInterface(comtypes.gen.ETABSv1.cOAPI)
+            etabs_object = comtypes.client.GetBestInterface(etabs_object)
         except Exception as qi_err:
-            print(f"Failed to cast ETABS object to cOAPI interface: {qi_err}")
+            print(f"Failed to cast ETABS object to typed interface: {qi_err}")
             
         sap_model = etabs_object.SapModel
         try:
@@ -345,22 +353,66 @@ def generate_virtual_grids(column_coords, tolerance=0.5):
         
     return x_grids, y_grids
 
-def get_section_dimensions(sap_model, prop_name):
+def get_section_dimensions(sap_model, prop_name, status_callback=None, warned_sections=None):
     """Retrieve the physical width and depth of a section in meters."""
+    def emit(msg):
+        if status_callback:
+            status_callback(msg)
+        else:
+            print(msg)
+
+    fail_reasons = []
+
     try:
         ret = sap_model.PropFrame.GetRectangle(prop_name)
         if ret[-1] == 0:
             return "Rectangular", ret[3], ret[2]
-    except Exception:
-        pass
-        
+        fail_reasons.append(f"GetRectangle ret_code={ret[-1]}")
+    except Exception as e:
+        fail_reasons.append(f"GetRectangle raised: {e}")
+
     try:
         ret = sap_model.PropFrame.GetCircle(prop_name)
         if ret[-1] == 0:
             return "Circular", ret[2], ret[2]
-    except Exception:
-        pass
-        
+        fail_reasons.append(f"GetCircle ret_code={ret[-1]}")
+    except Exception as e:
+        fail_reasons.append(f"GetCircle raised: {e}")
+
+    # Covers sections defined by overall dimensions (e.g. "General" property type)
+    # rather than a literal rectangular/circular shape.
+    try:
+        ret = sap_model.PropFrame.GetGeneral(prop_name)
+        if ret[-1] == 0 and ret[2] > 0 and ret[3] > 0:
+            return "Rectangular", ret[3], ret[2]
+        fail_reasons.append(f"GetGeneral ret_code={ret[-1] if ret else 'N/A'}")
+    except Exception as e:
+        fail_reasons.append(f"GetGeneral raised: {e}")
+
+    already_warned = warned_sections is not None and prop_name in warned_sections
+    if warned_sections is not None:
+        warned_sections.add(prop_name)
+
+    # Last resort for shapes with no direct dimension API (e.g. Section Designer,
+    # auto-select list members not yet resolved): derive an equivalent square from
+    # the actual cross-sectional area instead of guessing a fixed size.
+    try:
+        ret = sap_model.PropFrame.GetSectProps(prop_name)
+        if ret[-1] == 0 and ret[0] > 0:
+            side = ret[0] ** 0.5
+            if not already_warned:
+                emit(f"Warning: Could not determine exact shape for section '{prop_name}' "
+                     f"({'; '.join(fail_reasons)}); approximated as "
+                     f"{side * 1000.0:.0f}x{side * 1000.0:.0f}mm from cross-sectional area. "
+                     f"Verify this column's size manually.")
+            return "Rectangular", side, side
+        fail_reasons.append(f"GetSectProps ret_code={ret[-1] if ret else 'N/A'}")
+    except Exception as e:
+        fail_reasons.append(f"GetSectProps raised: {e}")
+
+    if not already_warned:
+        emit(f"Warning: Could not determine dimensions for section '{prop_name}' "
+             f"({'; '.join(fail_reasons)}); defaulting to 400x400mm. Verify this column's size manually.")
     return "Rectangular", 0.4, 0.4
 
 def extract_rebar_design_results(sap_model):
@@ -471,7 +523,8 @@ def extract_column_data(sap_model, status_callback=None):
             return None
             
         df_connectivity.columns = [c.strip() for c in df_connectivity.columns]
-        
+        warned_sections = set()
+
         if status_callback:
             status_callback("Extracting grid layout and design rebar ratio...")
             
@@ -558,10 +611,15 @@ def extract_column_data(sap_model, status_callback=None):
             try:
                 ret_sect = sap_model.FrameObj.GetSection(uniq_name)
                 section_name = ret_sect[0]
-            except Exception:
+            except Exception as e:
                 section_name = "Default"
-                
-            shape, w, d = get_section_dimensions(sap_model, section_name)
+                if status_callback:
+                    status_callback(f"Warning: Could not read section assignment for frame '{uniq_name}' "
+                                     f"(FrameObj.GetSection raised: {e}); using 'Default'.")
+
+            shape, w, d = get_section_dimensions(sap_model, section_name,
+                                                  status_callback=status_callback,
+                                                  warned_sections=warned_sections)
             
             angle = 0.0
             try:
