@@ -95,7 +95,7 @@ def get_column_image(suggested_id, max_w=180.0, max_h=120.0):
     if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
         image_dir = os.path.join(sys._MEIPASS, "Column xn")
     else:
-        image_dir = r"C:\Column Rebar Generator\Column xn"
+        image_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Column xn")
         
     if not os.path.exists(image_dir):
         return None

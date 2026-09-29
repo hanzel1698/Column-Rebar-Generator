@@ -10,9 +10,10 @@ import time
 
 def main():
     start_time = time.time()
-    
-    dxf_path = r"C:\Column Rebar Generator\Column reinforcement.dxf"
-    output_dir = r"C:\Column Rebar Generator\Column_Sections"
+
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    dxf_path = os.path.join(base_dir, "Column reinforcement.dxf")
+    output_dir = os.path.join(base_dir, "Column_Sections")
     
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
