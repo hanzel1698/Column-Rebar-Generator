@@ -129,6 +129,9 @@ class ETABSSelectionDialog(QDialog):
         self.selected_instance = self.instances[idx]
         self.accept()
 
+    def get_selected_instance(self):
+        return self.selected_instance
+
 # Main Application Window
 class ColumnDetailerApp(QMainWindow):
     # Signals for thread-safe UI updates from background threads
@@ -399,6 +402,16 @@ class ColumnDetailerApp(QMainWindow):
             }
             QSlider::handle:horizontal:hover {
                 background: #2563EB;
+            }
+            QMessageBox {
+                background-color: #1E293B;
+            }
+            QMessageBox QLabel {
+                color: #E2E8F0;
+                font-size: 12px;
+            }
+            QMessageBox QPushButton {
+                min-width: 70px;
             }
         """)
 
