@@ -85,8 +85,11 @@ def connect_to_etabs(gui_callback=None):
                         filename = sap_model.GetModelFilename(False)
                         filepath = sap_model.GetModelFilename(True)
                     except Exception:
-                        filename = "Untitled / No Model Loaded"
-                        filepath = "Untitled / No Model Loaded"
+                        filename = None
+                        filepath = None
+                    # Unsaved models return None for their filename
+                    filename = filename or "Untitled / No Model Loaded"
+                    filepath = filepath or ""
                         
                     instances.append({
                         'pid': pid,
@@ -159,8 +162,11 @@ def connect_to_etabs(gui_callback=None):
             filename = sap_model.GetModelFilename(False)
             filepath = sap_model.GetModelFilename(True)
         except Exception:
-            filename = "Active ETABS Model"
-            filepath = ""
+            filename = None
+            filepath = None
+        # Unsaved models return None for their filename
+        filename = filename or "Active ETABS Model"
+        filepath = filepath or ""
         print("Connected to active ETABS object successfully.")
         return sap_model, filename, filepath
     except Exception as e:
