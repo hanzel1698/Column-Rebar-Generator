@@ -3,19 +3,23 @@
 ====================================================
 
 --- SYSTEM INFO ---
-Python Version: 3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]
-Executable: C:\Python314\python.exe
-Working Directory: C:\Column Rebar Generator
+Python Version: 3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]
+Executable: C:\Users\USER\AppData\Local\Programs\Python\Python313\python.exe
+Working Directory: E:\Created Programs\Column-Rebar-Generator
 Running as Administrator: False
 
 --- PROCESS CHECK ---
-WARNING: ETABS.exe was NOT found in the running processes list.
-Make sure ETABS is open before running the connection.
+Found ETABS.exe running in processes:
+"ETABS.exe","26956","Console","1","5,98,344 K"
+"ETABS.exe","32480","Console","1","4,37,552 K"
+"ETABS.exe","27640","Console","1","4,43,460 K"
 
 --- PYWIN32 & ROT SCAN ---
 pythoncom and win32com imported successfully.
-No ETABS/CSI objects found in ROT.
-This is common if ETABS and this script have different privilege/integrity levels (e.g. one is Admin, one is normal user).
+Found ETABS/CSI related objects in Running Object Table (ROT):
+  - !CSI.ETABS.API.ETABSObject:32480
+  - !CSI.ETABS.API.ETABSObject:27640
+  - !CSI.ETABS.API.ETABSObject:26956
 
 --- COMTYPES CHECK ---
 comtypes version 1.4.16 imported successfully.
@@ -23,28 +27,38 @@ Could not determine comtypes cache folder: module 'comtypes.client._code_cache' 
 
 --- METHOD A: GetActiveObject (CSI.ETABS.API.ETABSObject) ---
 Attempting comtypes.client.GetActiveObject('CSI.ETABS.API.ETABSObject')...
-FAILED Method A: [WinError -2147221021] Operation unavailable
-Traceback (most recent call last):
-  File "C:\Column Rebar Generator\diagnose_etabs.py", line 103, in run_diagnostics
-    etabs_object = comtypes.client.GetActiveObject("CSI.ETABS.API.ETABSObject")
-  File "C:\Users\hanze\AppData\Roaming\Python\Python314\site-packages\comtypes\client\_activeobj.py", line 43, in GetActiveObject
-    obj = comtypes.GetActiveObject(clsid, interface=interface)
-  File "C:\Users\hanze\AppData\Roaming\Python\Python314\site-packages\comtypes\_post_coinit\activeobj.py", line 43, in GetActiveObject
-    _GetActiveObject(byref(clsid), None, byref(p))
-    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "_ctypes/callproc.c", line 1036, in GetResult
-OSError: [WinError -2147221021] Operation unavailable
-
+SUCCESS: Connected to ETABSObject!
+SUCCESS: Retrieved SapModel. Active file: Template 22.0.0 .EDB
 
 --- METHOD B: win32com GetActiveObject ---
 Attempting win32com.client.GetActiveObject('CSI.ETABS.API.ETABSObject')...
-FAILED Method B: (-2147221021, 'Operation unavailable', None, None)
+SUCCESS: Connected via win32com GetActiveObject!
+ERROR retrieving SapModel: (-2147467262, 'No such interface supported', None, None)
 Traceback (most recent call last):
-  File "C:\Column Rebar Generator\diagnose_etabs.py", line 121, in run_diagnostics
-    etabs_object = win32com.client.GetActiveObject("CSI.ETABS.API.ETABSObject")
-  File "C:\Users\hanze\AppData\Roaming\Python\Python314\site-packages\win32com\client\__init__.py", line 94, in GetActiveObject
-    dispatch = pythoncom.GetActiveObject(resultCLSID)
-pywintypes.com_error: (-2147221021, 'Operation unavailable', None, None)
+  File "E:\Created Programs\Column-Rebar-Generator\gui_app.py", line 1379, in connect_etabs
+    self.on_connection_multiple(res)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "E:\Created Programs\Column-Rebar-Generator\gui_app.py", line 1408, in on_connection_multiple
+    self.show_instance_selection_dialog()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\Created Programs\Column-Rebar-Generator\gui_app.py", line 1411, in show_instance_selection_dialog
+    dialog = ETABSSelectionDialog(self.etabs_instances, self)
+  File "E:\Created Programs\Column-Rebar-Generator\gui_app.py", line 118, in __init__
+    self.combo.addItem(f"PID {inst['pid']} - {os.path.basename(inst['filename'])}", idx)
+                                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "<frozen ntpath>", line 258, in basename
+  File "<frozen ntpath>", line 229, in split
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Created Programs\Column-Rebar-Generator\diagnose_etabs.py", line 124, in run_diagnostics
+    sap_model = etabs_object.SapModel
+                ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python313\Lib\site-packages\win32com\client\dynamic.py", line 620, in __getattr__
+    ret = self._oleobj_.Invoke(retEntry.dispid, 0, invoke_type, 1)
+pywintypes.com_error: (-2147467262, 'No such interface supported', None, None)
 
 
 --- METHOD C: ETABSv1.Helper Helper Class ---
@@ -52,7 +66,8 @@ Attempting to create ETABSv1.Helper...
 SUCCESS: Created ETABSv1.Helper object.
 SUCCESS: Queried cHelper interface.
 Attempting helper.GetObject('CSI.ETABS.API.ETABSObject')...
-FAILED: helper.GetObject returned None.
+SUCCESS: helper.GetObject returned an object.
+SUCCESS: Retrieved SapModel. Active file: Template 22.0.0 .EDB
 
 --- REGISTRY COM REGISTRATION CHECK ---
 WARNING: Registry Key NOT FOUND: HKEY_CLASSES_ROOT\CLSID\{F19760EE-5CE7-4180-8772-74E9A4B866EE}
@@ -60,6 +75,6 @@ Registry Key FOUND: HKEY_CLASSES_ROOT\CSI.ETABS.API.ETABSObject
 Registry Key FOUND: HKEY_CLASSES_ROOT\ETABSv1.Helper
 
 --- DIAGNOSTIC CONCLUSIONS ---
--> CONCLUSION: ETABS.exe is not running. Please open ETABS and open your model before launching this.
+-> CONCLUSION: Diagnostics completed. At least one connection method succeeded.
 
 ====================================================

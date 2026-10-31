@@ -206,7 +206,7 @@ class MatchingEngine:
                 "suggested_id": "CUSTOM / EXCEEDED",
                 "cad_pct": max_avail,
                 "cad_area": 0.0,
-                "efficiency": (max_avail / target_pct * 100.0) if target_pct > 0 else 0.0,
+                "efficiency": (max_avail / required_pct * 100.0) if required_pct > 0 else 0.0,
                 "reason": f"Required steel ({target_pct:.2f}%) exceeds maximum available ({max_avail:.2f}%) in CAD schedule."
             }
             

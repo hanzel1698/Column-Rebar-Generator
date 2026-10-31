@@ -166,6 +166,10 @@ class ColumnDetailerApp(QMainWindow):
         self.notations_generated = False
         self.selected_frame_names = []
         self._updating_selection = False
+
+        # Buffer actually used by the last completed run (None until first run)
+        self.applied_buffer_pct = None
+        self._pending_buffer_pct = None
         
         # Color palette for unique group color-coding
         self.NOTATION_COLORS = [
@@ -789,10 +793,11 @@ class ColumnDetailerApp(QMainWindow):
         # Buffer slider
         self.buffer_lbl = QLabel("Longitudinal Rebar Buffer: 0.00%")
         self.buffer_lbl.setStyleSheet("color: #94A3B8; font-size: 11px;")
+        self.buffer_lbl.setWordWrap(True)
         config_layout.addWidget(self.buffer_lbl)
-        
+
         self.buffer_slider = QSlider(Qt.Orientation.Horizontal)
-        self.buffer_slider.setRange(0, 100)
+        self.buffer_slider.setRange(0, 50)
         self.buffer_slider.setValue(0)
         self.buffer_slider.valueChanged.connect(self.on_buffer_slide)
         config_layout.addWidget(self.buffer_slider)
@@ -1293,7 +1298,14 @@ class ColumnDetailerApp(QMainWindow):
 
     def on_buffer_slide(self, val):
         pct = val / 100.0
-        self.buffer_lbl.setText(f"Longitudinal Rebar Buffer: {pct:.2f}%")
+        text = f"Longitudinal Rebar Buffer: {pct:.2f}%"
+        # Results only change on Run; flag when the slider no longer matches them
+        if self.applied_buffer_pct is not None and pct != self.applied_buffer_pct:
+            text += f" (not applied, results use {self.applied_buffer_pct:.2f}% until Run)"
+            self.buffer_lbl.setStyleSheet("color: #F59E0B; font-size: 11px;")
+        else:
+            self.buffer_lbl.setStyleSheet("color: #94A3B8; font-size: 11px;")
+        self.buffer_lbl.setText(text)
 
     def on_ag_slide(self, val):
         pct = val / 100.0
@@ -1457,6 +1469,26 @@ class ColumnDetailerApp(QMainWindow):
 
     # ==================== RUN DESIGN AUDIT ====================
     def run_audit_threaded(self):
+        # Re-running rebuilds matches from scratch, which drops manual merges and notations
+        if self.execution_mode == "MANUAL" and self.matched_columns and (
+            self.notations_generated or any(c.get('manual_group_id') for c in self.matched_columns)
+        ):
+            reply = QMessageBox.question(
+                self,
+                "Discard Manual Work?",
+                "Running again will discard all merged groups and generated notations, "
+                "and clear the undo history.\n\nDo you want to continue?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                QMessageBox.StandardButton.No
+            )
+            if reply != QMessageBox.StandardButton.Yes:
+                return
+
+        # Read slider values here on the GUI thread; the worker must not touch widgets
+        buffer_val = self.buffer_slider.value() / 100.0
+        tolerance = self.ag_slider.value() / 100.0
+        self._pending_buffer_pct = buffer_val
+
         self.run_btn.setEnabled(False)
         self.run_btn.setText("⚡ Running...")
         self.pdf_btn.setEnabled(False)
@@ -1483,9 +1515,9 @@ class ColumnDetailerApp(QMainWindow):
         if hasattr(self, 'undo_btn'):
             self.undo_btn.setEnabled(False)
             
-        threading.Thread(target=self.run_audit, daemon=True).start()
+        threading.Thread(target=self.run_audit, args=(buffer_val, tolerance), daemon=True).start()
 
-    def run_audit(self):
+    def run_audit(self, buffer_val, tolerance):
         import comtypes
         try:
             comtypes.CoInitialize()
@@ -1503,12 +1535,10 @@ class ColumnDetailerApp(QMainWindow):
             self.logSignal.emit("Data successfully extracted from ETABS. Running matching engine...")
             
             # Map columns
-            buffer_val = self.buffer_slider.value() / 100.0
             self.matched_columns = self.matcher.match_all_columns(self.raw_etabs_data, buffer_pct=buffer_val)
-            
+
             if self.execution_mode == "AUTO":
                 # Auto-group columns with current tolerance
-                tolerance = self.ag_slider.value() / 100.0
                 self.matched_columns = self.matcher.auto_group_columns(self.matched_columns, tolerance=tolerance)
             else:
                 # In MANUAL mode, do not group or generate notations automatically
@@ -1531,6 +1561,17 @@ class ColumnDetailerApp(QMainWindow):
                 pass
 
     def on_audit_completed(self):
+        # Record the buffer these results were matched with and refresh the slider label
+        self.applied_buffer_pct = self._pending_buffer_pct
+        self.on_buffer_slide(self.buffer_slider.value())
+
+        if self.execution_mode == "MANUAL":
+            # Fresh matches carry no notations, so return to the pre-notation state
+            self.notations_generated = False
+            self.selected_frame_names = []
+            self.override_card.setVisible(False)
+            self.groups_card.setVisible(False)
+
         # Generate Plotly plan and update layouts on main thread safely
         html_content = self.generate_plotly_html()
         
@@ -2670,7 +2711,8 @@ class ColumnDetailerApp(QMainWindow):
             return
             
         try:
-            buffer_val = self.buffer_slider.value() / 100.0
+            # Report the buffer the results were matched with, not the slider's current position
+            buffer_val = self.applied_buffer_pct if self.applied_buffer_pct is not None else 0.0
             report_generator.generate_pdf_report(
                 self.matched_columns,
                 self.model_filename,
